@@ -7,10 +7,9 @@ import subprocess
 import configparser
 import uuid
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QSystemTrayIcon, QMenu, QAction, QVBoxLayout
-from PyQt5.QtWidgets import QListWidget, QLineEdit, QHBoxLayout, QComboBox, QLabel
+from PyQt5.QtWidgets import QListWidget, QLineEdit, QHBoxLayout, QLabel
 from PyQt5.QtCore import Qt, QTimer, QMetaObject, QPoint, QEvent
 from PyQt5.QtGui import QIcon
-
 
 class SettingsWindow(QWidget):
     def __init__(self, config, button_widget, parent=None):
@@ -135,7 +134,6 @@ class SettingsWindow(QWidget):
                 if section.startswith('Button_') and self.config.get(section, 'name') == section_name:
                     self.config.set(section, 'name', self.name_input.text())
                     self.config.set(section, 'address', self.address_input.text())
-                    self.config.set(section, 'toggle', str(self.global_toggle_button.isChecked()))
                     with open('setting.ini', 'w', encoding='utf-8') as file:
                         self.config.write(file)
                     current_item.setText(self.name_input.text())
@@ -164,7 +162,7 @@ class SettingsWindow(QWidget):
         button_size = 80
         button = DraggableButton('new button', self.button_widget)
         button.setObjectName(new_button)
-        button.setGeometry(100, 100, button_size, button_size)
+        button.setGeometry(200, 200, button_size, button_size)
         button.setStyleSheet(f"background-color: rgba(0, 128, 128, 0.8); color: white; font-size: {button_size // 4}px; padding: 5px;")
         button.clicked.connect(lambda _, s=new_button: self.button_widget.on_button_click(s))
         self.button_widget.buttons.append(button)
